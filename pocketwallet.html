@@ -13,7 +13,7 @@
     <div id="wallet-container">
         <h1>PocketWallet</h1>
         <div id="balance-display">Balance: $<span id="balance">0.00</span></div>
-        <div id="balance-display">Monthly top-up amount: $<span id="topUpAmount">0.00</span></div>
+        <div id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
         
         <button id="request-payback">Request Payback</button>
         <button id="top-up">Set monthly Top Up Amount</button>
@@ -29,7 +29,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Top Up</h2>
-            <label for="topUpAmount"  id="topUpAmount">Enter amount:</label>
+            <label for="topUpAmount">Enter amount:</label>
             <input type="number" id="topUpAmount" step="0.01" min="0">
             <button id="submitTopUp">Submit</button>
         </div>

@@ -8,9 +8,35 @@ $(document).ready(function () {
     updateBalanceDisplay();
 
     $('#request-payback').click(() => handleTransaction("Enter the amount to request for payback:"));
-    $('#top-up').click(() => handleTransaction("Enter the amount to top up:"));
+    $('#top-up').click(() => {
+        $('#topUpModal').css("display", "block");
+    });
 
-   
+    $('#submitTopUp').click(() => {
+        
+
+        topUpAmount = parseFloat($('#topUpAmount').val());
+        if (!isNaN(topUpAmount) && topUpAmount > 0) {
+           
+            updateTopUpAmountDisplay();
+            $('#topUpModal').css("display", "none");
+            $('#topUpAmount').val('');
+        } else {
+            alert("Invalid amount entered.");
+        }
+    });
+
+    $('.close').click(() => {
+        $('#topUpModal').css("display", "none");
+        $('#topUpAmount').val('');
+    });
+
+    $(window).click((event) => {
+        if (event.target.id == 'topUpModal') {
+            $('#topUpModal').css("display", "none");
+            $('#topUpAmount').val('');
+        }
+    });
 
     $('#calculate-gold').click(() => calculateAndDisplayInvestment(goldInterestRate));
     $('#calculate-stocks').click(() => calculateAndDisplayInvestment(stocksInterestRate));
@@ -18,17 +44,8 @@ $(document).ready(function () {
     $('#invest-gold').click(() => invest(goldInterestRate));
     $('#invest-stocks').click(() => invest(stocksInterestRate));
 
-    // Check date every day
-    setInterval(() => {
-        const today = new Date();
-        if (today.getDate() === 30) {
-            autoTopUp();
-            endOfMonthPrompt();
-        }
-    }, 100);  // Check every day (86400000 milliseconds in a day)
 
-
-     // Workaround for 30-day interval
+      // Workaround for 30-day interval
     //  let daysPassed = 0;
     //  const maxDays = 30;
  
@@ -41,17 +58,26 @@ $(document).ready(function () {
     //      }
     //  }, 86400000);  // Check every day (86400000 milliseconds in a day)
  
+    // Check date every day
+    setInterval(() => {
+        const today = new Date();
+        if (today.getDate() === 30) {
+            autoTopUp();
+            endOfMonthPrompt();
+        }
+    }, 86400000);  // Check every day (86400000 milliseconds in a day)
 
     function updateBalanceDisplay() {
         $('#balance').text(balance.toFixed(2));
     }
-    function updateBalanceDisplay() {
-        $('#topUpAmount').text(topUpAmount.toFixed(2));
+    function updateTopUpAmountDisplay() {
+        $('#AmountToTopUp').text(topUpAmount.toFixed(2));
     }
+
     function handleTransaction(message) {
         let amount = parseFloat(prompt(message));
         if (!isNaN(amount) && amount > 0) {
-            topUpAmount += amount;
+            balance += amount;
             updateBalanceDisplay();
         } else {
             alert("Invalid amount entered.");
