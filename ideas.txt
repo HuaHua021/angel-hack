@@ -1,0 +1,26 @@
+
+Finance
+
+no login
+
+Homepage (if got time)
+
+Name
+PocketWallet page (Cash)
+show balance
+Request payback button
+Top up button (once per month) auto top up
+End of month prompt to invest currently gold
+Show how much the amount will be invested in the end in 10 years time
+
+
+additional graph shows your spending habit
+additional feature use generative ai to educate them about saving (tips etc)
+
+Testcase 1
+Jackson pay for friends
+request payment from friends for payback
+
+Testcase 2 exceed limit
+Stay at 0 but pay directly from bank.
+History will collect the data
