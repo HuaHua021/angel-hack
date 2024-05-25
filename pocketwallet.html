@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PocketWallet</title>
+    <title>Pocket Wallet</title>
 <link rel="stylesheet" href="styles.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 </head>
 <body>
@@ -26,29 +27,27 @@
 
                     <img src="assets/img/nav-img.png" alt="" class="nav__img">
                 </div>
-
                 <div class="nav__toggle" id="nav-toggle">
                     <i class='bx bx-grid-alt'></i>
                 </div>
-
             </nav>
         </header>
     <section id="wallet-section">
     <div id="wallet-container">
-        <h1>Wallet Balance</h1>
-        <div id="balance-display">Balance: $<span id="balance">0.00</span></div>
+        <h3>Wallet Balance</h3>
+        <div class="balance-display" id="balance-display">Balance: $<span id="balance">0.00</span></div>
         <button id="invest-gold">Invest in Gold</button>
         <button id="invest-stocks">Invest in Stocks</button>
     </div>
     <div id="wallet-container">
-        <h1>Top up amount set</h1>
-        <div id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
+        <h3>Top up amount set</h3>
+        <div class="balance-display" id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
         <button id="top-up">Set monthly Top Up Amount</button>
     </div>
     </section>
     <section>
         <div id="wallet-container">
-            <h1>History</h1>
+            <h2>History</h2>
             <div id="history-display" class="scrollable-history">
                 <div class="history-header">
                     <span>Purchase</span>
@@ -113,7 +112,12 @@
         <button id="calculate-stocks">Calculate Stocks Investment</button>
         <div id="investment-projection"></div>
     </div>
+    <div id="wallet-container">
+        <h1>Investment History</h1>
+        <canvas id="investmentChart" width="400" height="200"></canvas>
+    </div>
 </section>
+
     <!-- Modal Structure -->
     <div id="topUpModal" class="modal">
         <div class="modal-content">

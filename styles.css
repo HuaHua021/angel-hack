@@ -354,3 +354,9 @@ button{
 .history-entry span:last-child {
     text-align: right;
 }
+
+.balance-display span {
+    font-size: larger;
+    font-weight: bold;
+    color: green;
+}

@@ -4,11 +4,59 @@ $(document).ready(function () {
     let investmentPrompted = false; // Flag to ensure the prompt only occurs once
     let topUpAmount = getCookie("topUpAmount") ? parseFloat(getCookie("topUpAmount")) : 0;  // Get the top-up amount from the cookie
     let balance = getCookie("balance") ? parseFloat(getCookie("balance")) : 300.00;  // Get the balance from the cookie or set to default
+    let investmentData = [];  // Array to store investment data
     if (balance === 0) {
         balance = topUpAmount;
     }
     updateBalanceDisplay();
     updateTopUpAmountDisplay();
+
+    // Initialize the chart
+
+    const datapoint = {
+    labels: ["2024-02-01", "2024-03-02", "2024-04-03", "2024-05-04"],
+    data: [300, 320, 340, 310] // Corresponding balance values for each date
+};
+    // Initialize the chart with hardcoded data
+const ctx = document.getElementById('investmentChart').getContext('2d');
+let investmentChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: datapoint.labels,
+        datasets: [{
+            label: 'Investment Over Time',
+            data: datapoint.data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Time'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Amount ($)'
+                },
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+    function updateChart() {
+        const date = new Date().toLocaleDateString();
+        investmentChart.data.labels.push(date);
+        investmentChart.data.datasets[0].data.push(balance);
+        investmentChart.update();
+    }
+
 
     $('#request-payback').click(() => handleTransaction("Enter the amount to request for payback:"));
     $('#top-up').click(() => {
@@ -44,10 +92,10 @@ $(document).ready(function () {
 
     $('#calculate-gold').click(() => calculateAndDisplayInvestment(goldInterestRate));
     $('#calculate-stocks').click(() => calculateAndDisplayInvestment(stocksInterestRate));
-
     $('#invest-gold').click(() => invest(goldInterestRate));
+    updateChart();  // Update the chart with the new balance
     $('#invest-stocks').click(() => invest(stocksInterestRate));
-
+    updateChart();  // Update the chart with the new balance
 
       // Workaround for 30-day interval
     //  let daysPassed = 0;
