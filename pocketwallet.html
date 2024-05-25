@@ -1,149 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+   
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PocketWallet</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        #wallet-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<link rel="stylesheet" href="styles.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
 </head>
 <body>
     <div id="wallet-container">
         <h1>PocketWallet</h1>
         <div id="balance-display">Balance: $<span id="balance">0.00</span></div>
+        <div id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
+        
         <button id="request-payback">Request Payback</button>
-        <button id="top-up">Top Up</button>
+        <button id="top-up">Set monthly Top Up Amount</button>
+        
         <button id="calculate-gold">Calculate Gold Investment</button>
         <button id="calculate-stocks">Calculate Stocks Investment</button>
         <button id="invest-gold">Invest in Gold</button>
         <button id="invest-stocks">Invest in Stocks</button>
         <div id="investment-projection"></div>
     </div>
-
-    <script>
-        let balance = 0.00;
-        const goldInterestRate = 0.05;  // Example annual return rate of 5% for gold
-        const stocksInterestRate = 0.07;  // Example annual return rate of 7% for stocks
-        let investmentPrompted = false; // Flag to ensure the prompt only occurs once
-
-        document.getElementById('balance').innerText = balance.toFixed(2);
-
-        document.getElementById('request-payback').addEventListener('click', () => {
-            let amount = prompt("Enter the amount to request for payback:");
-            amount = parseFloat(amount);
-            if (!isNaN(amount) && amount > 0) {
-                balance += amount;
-                document.getElementById('balance').innerText = balance.toFixed(2);
-            } else {
-                alert("Invalid amount entered.");
-            }
-        });
-
-        document.getElementById('top-up').addEventListener('click', () => {
-            let amount = prompt("Enter the amount to top up:");
-            amount = parseFloat(amount);
-            if (!isNaN(amount) && amount > 0) {
-                balance += amount;
-                document.getElementById('balance').innerText = balance.toFixed(2);
-            } else {
-                alert("Invalid amount entered.");
-            }
-        });
-
-        document.getElementById('calculate-gold').addEventListener('click', () => {
-            let projection = calculateInvestment(balance, goldInterestRate, 10);
-            document.getElementById('investment-projection').innerText = 
-                `If you invest $${balance.toFixed(2)} in gold, it will be worth $${projection.toFixed(2)} in 10 years.`;
-        });
-
-        document.getElementById('calculate-stocks').addEventListener('click', () => {
-            let projection = calculateInvestment(balance, stocksInterestRate, 10);
-            document.getElementById('investment-projection').innerText = 
-                `If you invest $${balance.toFixed(2)} in stocks, it will be worth $${projection.toFixed(2)} in 10 years.`;
-        });
-
-        document.getElementById('invest-gold').addEventListener('click', () => {
-            if (balance > 0) {
-                let projection = calculateInvestment(balance, goldInterestRate, 10);
-                document.getElementById('investment-projection').innerText = 
-                    `You invested $${balance.toFixed(2)} in gold. It will be worth $${projection.toFixed(2)} in 10 years.`;
-                balance = 0;
-                document.getElementById('balance').innerText = balance.toFixed(2);
-            } else {
-                alert("Insufficient balance to invest.");
-            }
-        });
-
-        document.getElementById('invest-stocks').addEventListener('click', () => {
-            if (balance > 0) {
-                let projection = calculateInvestment(balance, stocksInterestRate, 10);
-                document.getElementById('investment-projection').innerText = 
-                    `You invested $${balance.toFixed(2)} in stocks. It will be worth $${projection.toFixed(2)} in 10 years.`;
-                balance = 0;
-                document.getElementById('balance').innerText = balance.toFixed(2);
-            } else {
-                alert("Insufficient balance to invest.");
-            }
-        });
-
-        function calculateInvestment(principal, rate, years) {
-            return principal * Math.pow((1 + rate), years);
-        }
-
-        // Auto top-up once per month
-        function autoTopUp() {
-            let topUpAmount = 100;  // Example fixed top-up amount
-            balance += topUpAmount;
-            document.getElementById('balance').innerText = balance.toFixed(2);
-        }
-        setTimeout(autoTopUp, 2592000000);  // 30 days in milliseconds
-
-        // End of month prompt to calculate investment (only once)
-        function endOfMonthPrompt() {
-            if (!investmentPrompted) {
-                let invest = confirm("Would you like to calculate your potential investment earnings?");
-                if (invest) {
-                    let projectionGold = calculateInvestment(balance, goldInterestRate, 10);
-                    let projectionStocks = calculateInvestment(balance, stocksInterestRate, 10);
-                    document.getElementById('investment-projection').innerText = 
-                        `If you invest $${balance.toFixed(2)}:\n- In gold, it will be worth $${projectionGold.toFixed(2)} in 10 years.\n- In stocks, it will be worth $${projectionStocks.toFixed(2)} in 10 years.`;
-                }
-                investmentPrompted = true;
-            }
-        }
-        setTimeout(endOfMonthPrompt, 2592000000);  // 30 days in milliseconds
-    </script>
+    <!-- Modal Structure -->
+    <div id="topUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Top Up</h2>
+            <label for="topUpAmount">Enter amount:</label>
+            <input type="number" id="topUpAmount" step="0.01" min="0">
+            <button id="submitTopUp">Submit</button>
+        </div>
+    </div>
+           
+          
 </body>
 </html>
