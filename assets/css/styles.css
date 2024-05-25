@@ -426,7 +426,6 @@ button{
 }
 
 .about__projection{
-  margin-bottom: var(--mb-10);
   animation: floating 2s ease-in-out infinite;
   font-size: var(--h3-font-size);
   background-color: darkgrey;
@@ -435,7 +434,7 @@ button{
   padding: 1rem;
   border-radius: 1rem;
   text-align: center;
-  position: fixed;
+  position: fixed-bottom;
 }
 
 .about__img{
