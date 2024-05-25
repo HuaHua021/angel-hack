@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let balance = 0.00;
+    let balance = 300.00;
     const goldInterestRate = 0.05;  // Example annual return rate of 5% for gold
     const stocksInterestRate = 0.07;  // Example annual return rate of 7% for stocks
     let investmentPrompted = false; // Flag to ensure the prompt only occurs once

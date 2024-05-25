@@ -415,6 +415,7 @@ button{
 /*=============== ABOUT ===============*/
 .about__container{
   row-gap: 2rem;
+  width:auto 50%;
 }
 
 .about__data{

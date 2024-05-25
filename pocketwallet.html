@@ -6,24 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PocketWallet</title>
 <link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="script.js"></script>
 </head>
 <body>
+    <main>
+        <header class="header" id="header">
+            <nav class="nav container">
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        PocketWallet
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    <img src="assets/img/nav-img.png" alt="" class="nav__img">
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-grid-alt'></i>
+                </div>
+
+            </nav>
+        </header>
+    <section id="wallet-section">
     <div id="wallet-container">
-        <h1>PocketWallet</h1>
+        <h1>Wallet Balance</h1>
         <div id="balance-display">Balance: $<span id="balance">0.00</span></div>
-        <div id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
-        
-        <button id="request-payback">Request Payback</button>
-        <button id="top-up">Set monthly Top Up Amount</button>
-        
-        <button id="calculate-gold">Calculate Gold Investment</button>
-        <button id="calculate-stocks">Calculate Stocks Investment</button>
         <button id="invest-gold">Invest in Gold</button>
         <button id="invest-stocks">Invest in Stocks</button>
+    </div>
+    <div id="wallet-container">
+        <h1>Top up amount set</h1>
+        <div id="balance-display">Monthly top-up amount: $<span id="AmountToTopUp">0.00</span></div>
+        <button id="top-up">Set monthly Top Up Amount</button>
+    </div>
+    </section>
+    <section>
+    <div id="wallet-container">
+        <h1>History</h1>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+        <div id="history-display">Macdonald :$5.00</span></div>
+    </div>
+    <div id="wallet-container">
+        <h1>Projections</h1>
+        <button id="calculate-gold">Calculate Gold Investment</button>
+        <button id="calculate-stocks">Calculate Stocks Investment</button>
         <div id="investment-projection"></div>
     </div>
+</section>
     <!-- Modal Structure -->
     <div id="topUpModal" class="modal">
         <div class="modal-content">
@@ -34,7 +74,7 @@
             <button id="submitTopUp">Submit</button>
         </div>
     </div>
-           
+</main>       
           
 </body>
 </html>
