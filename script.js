@@ -1,11 +1,14 @@
 $(document).ready(function () {
-    let balance = 300.00;
     const goldInterestRate = 0.05;  // Example annual return rate of 5% for gold
     const stocksInterestRate = 0.07;  // Example annual return rate of 7% for stocks
     let investmentPrompted = false; // Flag to ensure the prompt only occurs once
-    let topUpAmount = 0;  // Variable to store the top-up amount
-
+    let topUpAmount = getCookie("topUpAmount") ? parseFloat(getCookie("topUpAmount")) : 0;  // Get the top-up amount from the cookie
+    let balance = getCookie("balance") ? parseFloat(getCookie("balance")) : 300.00;  // Get the balance from the cookie or set to default
+    if (balance === 0) {
+        balance = topUpAmount;
+    }
     updateBalanceDisplay();
+    updateTopUpAmountDisplay();
 
     $('#request-payback').click(() => handleTransaction("Enter the amount to request for payback:"));
     $('#top-up').click(() => {
@@ -17,8 +20,9 @@ $(document).ready(function () {
 
         topUpAmount = parseFloat($('#topUpAmount').val());
         if (!isNaN(topUpAmount) && topUpAmount > 0) {
-           
+            setCookie("topUpAmount", topUpAmount, 30); // Set the cookie for 30 days
             updateTopUpAmountDisplay();
+            updateBalanceDisplay();
             $('#topUpModal').css("display", "none");
             $('#topUpAmount').val('');
         } else {
@@ -69,6 +73,7 @@ $(document).ready(function () {
 
     function updateBalanceDisplay() {
         $('#balance').text(balance.toFixed(2));
+        setCookie("balance", balance, 30);  // Update the balance cookie whenever the balance is displayed
     }
     function updateTopUpAmountDisplay() {
         $('#AmountToTopUp').text(topUpAmount.toFixed(2));
@@ -125,4 +130,28 @@ $(document).ready(function () {
             investmentPrompted = true;
         }
     }
+
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+
+    // Function to get a cookie
+    function getCookie(name) {
+        const cname = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(cname) == 0) {
+                return c.substring(cname.length, c.length);
+            }
+        }}
 });

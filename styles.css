@@ -13,7 +13,7 @@ body {
 
 /* Container styles */
 #wallet-container {
-    background-color: #fff;
+    background-color: hsla(0, 17%, 92%, 0.63);
     padding: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -24,6 +24,12 @@ body {
     justify-content: center;
     align-items: center;
     margin: 50px;
+    position: relative;
+    border: 2px solid white;
+    margin-inline: 1.5rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(8px);
 
     flex: 1; /* Ensure all containers take equal space */
 }
@@ -303,6 +309,48 @@ button{
 }
 
   
-  #history-display{
+
+  /* Scrollable history styles */
+.scrollable-history {
+    max-height: 200px; /* Adjust this height as needed */
+    overflow-y: auto;
+    margin-top: 10px;
+    padding-right: 10px; /* Optional: To prevent content being hidden by scrollbar */
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    background-color: #f1f1f1;
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+}
+
+/* History entry styling */
+.history-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
     color: #ae0a0a;
-  }
+}
+
+.history-entry:last-child {
+    border-bottom: none;
+}
+
+.history-entry span {
+    flex: 1;
+    text-align: center;
+}
+
+.history-entry span:first-child {
+    text-align: left;
+}
+
+.history-entry span:last-child {
+    text-align: right;
+}
